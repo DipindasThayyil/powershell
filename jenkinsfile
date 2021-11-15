@@ -1,0 +1,18 @@
+pipeline {
+    agent {
+       node {   
+         label 'windows'
+      }
+   }
+    stages {
+      stage ('Call Powershell Script') {
+       steps {
+         script {
+            withCredentials([usernamePassword(credentialsId: 'gsc_linux_windows_attr', passwordVariable: 'Pass', usernameVariable: 'User')]) {
+               powershell(". '.\\unixuserattrib.ps1'")
+          }
+         }
+       }
+    }
+}
+}
